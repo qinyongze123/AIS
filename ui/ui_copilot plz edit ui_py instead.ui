@@ -1,0 +1,599 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>ControlForm</class>
+ <widget class="QWidget" name="ControlForm">
+  <property name="windowModality">
+   <enum>Qt::WindowModality::NonModal</enum>
+  </property>
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1920</width>
+    <height>1200</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Embryo Injection Control System</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">QWidget { font-family: &quot;Segoe UI&quot;, &quot;Arial&quot;; font-size: 13px; color: #333; }
+QGroupBox { font-weight: bold; border: 1px solid #dcdcdc; border-radius: 6px; margin-top: 12px; padding-top: 10px; }
+QGroupBox::title { subcontrol-origin: margin; left: 10px; padding: 0 5px; color: #555; }
+QPushButton { padding: 6px 12px; border-radius: 4px; border: 1px solid #ccc; background: #fdfdfd; }
+QPushButton:hover { background: #f0f7ff; border-color: #2196F3; }
+QPushButton:pressed { background: #e0efff; }
+QComboBox, QLineEdit, QDoubleSpinBox { padding: 4px; border: 1px solid #ccc; border-radius: 4px; background: white; }
+QComboBox:focus, QLineEdit:focus { border-color: #2196F3; }</string>
+  </property>
+  <layout class="QHBoxLayout" name="mainLayout" stretch="4,5">
+   <property name="spacing">
+    <number>15</number>
+   </property>
+   <property name="leftMargin">
+    <number>15</number>
+   </property>
+   <property name="topMargin">
+    <number>15</number>
+   </property>
+   <property name="rightMargin">
+    <number>15</number>
+   </property>
+   <property name="bottomMargin">
+    <number>15</number>
+   </property>
+   <item>
+    <layout class="QVBoxLayout" name="leftPanel" stretch="3,2">
+     <property name="spacing">
+      <number>15</number>
+     </property>
+     <item>
+      <widget class="QTabWidget" name="tab_main_control">
+       <property name="styleSheet">
+        <string notr="true">QTabBar::tab { height: 36px; width: 140px; font-weight: bold; background: #eee; border: 1px solid #ddd; border-bottom: none; border-top-left-radius: 4px; border-top-right-radius: 4px; margin-right: 2px; }
+QTabBar::tab:selected { background: #fff; border-bottom: 3px solid #2196F3; color: #2196F3; }
+QTabWidget::pane { border: 1px solid #ddd; top: -1px; background: white; border-radius: 4px; }</string>
+       </property>
+       <property name="currentIndex">
+        <number>1</number>
+       </property>
+       <widget class="QWidget" name="tab_connection">
+        <attribute name="title">
+         <string>CONNECTION</string>
+        </attribute>
+        <layout class="QVBoxLayout" name="connMainVBox">
+         <property name="spacing">
+          <number>10</number>
+         </property>
+         <property name="leftMargin">
+          <number>15</number>
+         </property>
+         <property name="topMargin">
+          <number>15</number>
+         </property>
+         <property name="rightMargin">
+          <number>15</number>
+         </property>
+         <property name="bottomMargin">
+          <number>15</number>
+         </property>
+         <item>
+          <widget class="QGroupBox" name="group_status">
+           <property name="title">
+            <string>Hardware Configuration &amp; Status</string>
+           </property>
+           <layout class="QGridLayout" name="grid_status" columnstretch="1,2,1,1">
+            <property name="verticalSpacing">
+             <number>10</number>
+            </property>
+            <item row="0" column="0">
+             <widget class="QLabel" name="l_stat_inj">
+              <property name="text">
+               <string>Injector Port:</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="1">
+             <widget class="QComboBox" name="combo_port_inj"/>
+            </item>
+            <item row="0" column="2">
+             <widget class="QLabel" name="val_stat_inj">
+              <property name="styleSheet">
+               <string notr="true">color: #e53935; font-weight: bold;</string>
+              </property>
+              <property name="text">
+               <string>Offline</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="3">
+             <widget class="QPushButton" name="pushButton">
+              <property name="text">
+               <string>Retry</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="0">
+             <widget class="QLabel" name="l_port_probe">
+              <property name="text">
+               <string>Probe Port:</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1">
+             <widget class="QComboBox" name="combo_port_probe"/>
+            </item>
+            <item row="1" column="2">
+             <widget class="QLabel" name="val_stat_probe">
+              <property name="styleSheet">
+               <string notr="true">color: #e53935; font-weight: bold;</string>
+              </property>
+              <property name="text">
+               <string>Offline</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="3">
+             <widget class="QPushButton" name="pushButton_2">
+              <property name="text">
+               <string>Retry</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="0">
+             <widget class="QLabel" name="l_cam_rgbd">
+              <property name="text">
+               <string>RGBD Camera:</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="1">
+             <widget class="QComboBox" name="combo_cam_rgbd"/>
+            </item>
+            <item row="2" column="2">
+             <widget class="QLabel" name="val_stat_rgbd">
+              <property name="styleSheet">
+               <string notr="true">color: #e53935; font-weight: bold;</string>
+              </property>
+              <property name="text">
+               <string>Offline</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="3">
+             <widget class="QPushButton" name="pushButton_3">
+              <property name="text">
+               <string>Retry</string>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="0">
+             <widget class="QLabel" name="l_stat_us">
+              <property name="text">
+               <string>Ultrasound:</string>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="1">
+             <widget class="QComboBox" name="combo_cam_us"/>
+            </item>
+            <item row="3" column="2">
+             <widget class="QLabel" name="val_stat_us">
+              <property name="styleSheet">
+               <string notr="true">color: #e53935; font-weight: bold;</string>
+              </property>
+              <property name="text">
+               <string>Offline</string>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="3">
+             <widget class="QPushButton" name="pushButton_4">
+              <property name="text">
+               <string>Retry</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item>
+          <spacer name="connSpacer">
+           <property name="orientation">
+            <enum>Qt::Orientation::Vertical</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>20</width>
+             <height>40</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QWidget" name="tab_control">
+        <attribute name="title">
+         <string>CONTROL</string>
+        </attribute>
+        <layout class="QVBoxLayout" name="controlMainVBox">
+         <property name="spacing">
+          <number>12</number>
+         </property>
+         <property name="leftMargin">
+          <number>15</number>
+         </property>
+         <property name="topMargin">
+          <number>15</number>
+         </property>
+         <property name="rightMargin">
+          <number>15</number>
+         </property>
+         <property name="bottomMargin">
+          <number>10</number>
+         </property>
+         <item>
+          <layout class="QHBoxLayout" name="modeHBox">
+           <property name="spacing">
+            <number>0</number>
+           </property>
+           <item>
+            <widget class="QPushButton" name="btn_mode_safe">
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>40</height>
+              </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">QPushButton { border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-right: none; }
+QPushButton:checked { background-color: #ef9a9a; font-weight: bold; border: 2px solid #d32f2f; color: #b71c1c; }</string>
+             </property>
+             <property name="text">
+              <string>SAFE POSITION</string>
+             </property>
+             <property name="checkable">
+              <bool>true</bool>
+             </property>
+             <property name="checked">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="btn_mode_work">
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>40</height>
+              </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">QPushButton { border-top-left-radius: 0px; border-bottom-left-radius: 0px; }
+QPushButton:checked { background-color: #a5d6a7; font-weight: bold; border: 2px solid #388e3c; color: #1b5e20; }</string>
+             </property>
+             <property name="text">
+              <string>WORK POSITION</string>
+             </property>
+             <property name="iconSize">
+              <size>
+               <width>16</width>
+               <height>16</height>
+              </size>
+             </property>
+             <property name="checkable">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <widget class="QTabWidget" name="tab_work_mode">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">QTabBar::tab { height: 28px; width: 90px; font-size: 11px; background: #f8f8f8; border: 1px solid #ddd; border-bottom: none; border-top-left-radius: 3px; border-top-right-radius: 3px; margin-right: 1px; }
+QTabBar::tab:selected { background: #fff; border-bottom: 2px solid #4CAF50; color: #2e7d32; }
+QTabWidget::pane { border: 1px solid #ddd; top: -1px; }</string>
+           </property>
+           <widget class="QWidget" name="tab_operation">
+            <attribute name="title">
+             <string>Operation</string>
+            </attribute>
+            <layout class="QVBoxLayout" name="opVBox">
+             <property name="spacing">
+              <number>10</number>
+             </property>
+             <item>
+              <widget class="QLabel" name="label_op_hint">
+               <property name="styleSheet">
+                <string notr="true">padding: 10px; background: #e3f2fd; border-radius: 4px; color: #1565c0; font-weight: bold;</string>
+               </property>
+               <property name="text">
+                <string>Select Embryo in 3D View to start</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignmentFlag::AlignCenter</set>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="btn_get_close">
+               <property name="minimumSize">
+                <size>
+                 <width>0</width>
+                 <height>34</height>
+                </size>
+               </property>
+               <property name="text">
+                <string>1. Get Close to Embryo</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="btn_select_inject_pos">
+               <property name="minimumSize">
+                <size>
+                 <width>0</width>
+                 <height>34</height>
+                </size>
+               </property>
+               <property name="text">
+                <string>2. Select Injection Site (US)</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="btn_do_injection">
+               <property name="minimumSize">
+                <size>
+                 <width>0</width>
+                 <height>45</height>
+                </size>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">background-color: #2196F3; color: white; font-weight: bold; font-size: 14px; border: none;</string>
+               </property>
+               <property name="text">
+                <string>EXECUTE INJECTION</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <spacer name="opSpacer">
+               <property name="orientation">
+                <enum>Qt::Orientation::Vertical</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>0</width>
+                 <height>0</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+            </layout>
+           </widget>
+           <widget class="QWidget" name="tab_op_config">
+            <attribute name="title">
+             <string>Config</string>
+            </attribute>
+            <layout class="QGridLayout" name="grid_op_config">
+             <property name="spacing">
+              <number>10</number>
+             </property>
+             <item row="0" column="0" colspan="2">
+              <widget class="QPushButton" name="btn_calibration">
+               <property name="text">
+                <string>Run System Calibration</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="0">
+              <widget class="QLabel" name="l_boundary">
+               <property name="text">
+                <string>Bounds (mm):</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="1">
+              <widget class="QLineEdit" name="edit_boundary">
+               <property name="placeholderText">
+                <string>Xmin, Xmax, ...</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="0">
+              <widget class="QLabel" name="l_speed_lim">
+               <property name="text">
+                <string>Speed Limit:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="1">
+              <widget class="QDoubleSpinBox" name="spin_speed_lim"/>
+             </item>
+            </layout>
+           </widget>
+          </widget>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="posHBox">
+           <item>
+            <widget class="QLabel" name="label_pos_injector">
+             <property name="styleSheet">
+              <string notr="true">background: #f5f5f5; padding: 4px 8px; border-radius: 3px; font-weight: bold; color: #444;</string>
+             </property>
+             <property name="text">
+              <string>Inj: (0.00, 0.00, 0.00)@0.0°</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_pos_probe">
+             <property name="styleSheet">
+              <string notr="true">background: #f5f5f5; padding: 4px 8px; border-radius: 3px; font-weight: bold; color: #444;</string>
+             </property>
+             <property name="text">
+              <string>Prb: (0.00, 0.00, 0.00)@0.0°</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <spacer name="posSpacer">
+             <property name="orientation">
+              <enum>Qt::Orientation::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
+            <widget class="QPushButton" name="btn_stop_main">
+             <property name="minimumSize">
+              <size>
+               <width>80</width>
+               <height>32</height>
+              </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">background-color: #d32f2f; color: white; font-weight: bold; border-radius: 4px;</string>
+             </property>
+             <property name="text">
+              <string>STOP</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </widget>
+      </widget>
+     </item>
+     <item>
+      <widget class="QGroupBox" name="group_terminal">
+       <property name="title">
+        <string>System Logs</string>
+       </property>
+       <layout class="QVBoxLayout" name="terminalVBox">
+        <property name="spacing">
+         <number>5</number>
+        </property>
+        <item>
+         <layout class="QHBoxLayout" name="termFilterHBox">
+          <item>
+           <widget class="QCheckBox" name="check_log_debug">
+            <property name="text">
+             <string>Debug</string>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="check_log_info">
+            <property name="text">
+             <string>Info</string>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="check_log_tip">
+            <property name="text">
+             <string>Tip</string>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="logSpacer">
+            <property name="orientation">
+             <enum>Qt::Orientation::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <widget class="QTextEdit" name="text_terminal">
+          <property name="styleSheet">
+           <string notr="true">background-color: #fff; color: #333; font-family: &quot;Consolas&quot;, monospace; border: 1px solid #ddd; border-radius: 4px;</string>
+          </property>
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QVBoxLayout" name="rightPanel" stretch="1,1">
+     <property name="spacing">
+      <number>15</number>
+     </property>
+     <item>
+      <widget class="QGroupBox" name="group_ultrasound">
+       <property name="title">
+        <string>Imaging: Ultrasound</string>
+       </property>
+       <layout class="QVBoxLayout" name="usVBox">
+        <item>
+         <widget class="QLabel" name="label_us_video">
+          <property name="styleSheet">
+           <string notr="true">background-color: #000; border-radius: 4px; color: #666;</string>
+          </property>
+          <property name="text">
+           <string>US Video Stream Unavailable</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignmentFlag::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </item>
+     <item>
+      <widget class="QGroupBox" name="group_open3d">
+       <property name="title">
+        <string>Targeting: 3D Visualization</string>
+       </property>
+       <layout class="QVBoxLayout" name="o3dVBox">
+        <item>
+         <widget class="QWidget" name="widget_open3d" native="true">
+          <property name="styleSheet">
+           <string notr="true">background-color: #1a1a1b; border-radius: 4px;</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

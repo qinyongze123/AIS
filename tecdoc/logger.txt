@@ -1,0 +1,70 @@
+# SystemLogger Module Technical Documentation
+
+## 1. Introduction
+`SystemLogger` is the core logging component of the AIS project (Remake). It handles real-time status recording, file persistence, and UI synchronization. It features automatic source detection (identifying the file, class, and function of the caller), maintains an in-memory buffer for UI filtering, and writes structured logs to disk.
+
+## 2. Core Features
+- **Multi-level Logging**: Supports `DEBUG`, `INFO`, `TIP`, and `ERROR` levels.
+- **Automatic Source Detection**: Uses `inspect` stack tracing to automatically identify where the log was triggered.   
+- **Dynamic In-memory Buffering**: Maintains a `collections.deque` of the latest $X$ logs for dynamic UI refreshing, where $X$ is read from `config.json` (`MAX_LOGS`).
+- **Conditional File Persistence**: 
+    - Logs are only written to disk after the project is **registered** (`is_project_registered`).
+    - Feature a **10-log threshold**: Persistence only starts after the 10th log is generated to prevent empty/junk files.
+    - Uses a `_pending_buffer` to store logs produced before registration or the 10-log limit, flushing them to disk once criteria are met.
+- **Automatic Registration Warning**: Triggers a `TIP` message to the UI at the 10th log if the project is not yet registered.
+- **Signal Mechanism**: Uses PySide6 `new_log_signal` for real-time synchronization with the front-end.
+
+## 3. Interfaces and Types
+
+### 3.1 Constructor & Initialization
+- `__init__(log_dir="log", max_memory_logs=2000)`
+    - `log_dir` (str): Initial directory where log files are stored.
+    - `max_memory_logs` (int): Starting entries count; typically overwritten by `config.json`.
+- **Initialization Behavior**: Checks `remake/config.json` for `MAX_LOGS`.
+
+### 3.2 Public Methods
+- `debug/info/tip/error(msg: str / any)`: Logging methods.
+- `set_project_registered(registered: bool)`: Notifies the logger that the project is successfully created/loaded to enable file I/O.
+- `update_log_file(new_dir: str)`: Changes the directory of the current session's log file.
+- `get_buffered_logs(allowed_levels: Optional[List[str]]) -> List[Dict]`: Retrieves filtered logs for UI.
+
+### 3.3 Signals
+- `new_log_signal(level: str, time: str, source: str, message: str)`: Emitted whenever a new log is created.
+
+## 4. Data Structures
+
+### 4.1 Log Entry (Memory Buffer)
+```python
+{
+    "level": str,   # Log level (e.g., "INFO")
+    "time": str,    # Timestamp (HH:MM:SS.mmm)
+    "src": str,     # Origin (File -> Class.Function)
+    "msg": str      # Log content
+}
+```
+
+### 4.2 File Format
+Logs are written as structured lines using pipe `|` delimiters:
+`Timestamp | LEVEL | Source | Message`
+
+## 5. Usage
+
+### 5.1 Basic Logging
+```python
+from remake.logger import logger
+
+logger.info("System started")
+logger.error(f"Connection failed: {error_code}")
+```
+
+### 5.2 UI Subscription
+```python
+logger.new_log_signal.connect(self._on_new_log)
+```
+
+## 6. System Behavior Notes
+- **Data Access**: Reads current system time on initialization for file naming; `get_buffered_logs` reads from `self.buffer`.
+- **File I/O**: 
+    - Ensures `log_dir` existence during init or path updates.
+    - Every `_log` call opens the target file in "a" (append) mode for immediate persistence.
+- **Traceback Logic**: Scans caller stack frames while ignoring internal `logger.py` frames to isolate business logic origins.

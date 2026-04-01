@@ -1,0 +1,50 @@
+# RobotFrontEnd Module Technical Documentation
+
+## 1. Introduction
+`RobotFrontEnd` is the graphical user interface of the AIS project (Remake). It serves as the primary observation and interaction layer, coordinating between user inputs, hardware status visualization, and logging displays. It communicates exclusively with `Control.py` for hardware logic and uses `logger` for status feedback.
+
+## 2. Core Features
+- **Project & Session Management**: UI for creating/loading projects, registering operators, and sessions.
+- **Hardware Status Dashboard**: Real-time polling (10Hz) of injector, probe, and sensor connection states.
+- **Terminal Display**: Interactive log terminal with filtering (TIP/INFO/ERROR/DEBUG) and detail toggles.
+- **Video Streaming**: Scaling display for ultrasound and camera feeds without feedback resize loops.
+- **Operational Safety Modes**: Toggle between SAFE (inhibited motions) and WORK modes.
+
+## 3. Interfaces and Integration
+
+### 3.1 Constructor & Initialization
+- `__init__(injector_control)`
+    - `injector_control` (Control): The backend controller instance.
+- **Initialization Behavior**: 
+    - Loads `config.json` for persistence and UI limits.
+    - Connects to `logger.new_log_signal` for real-time reporting.
+    - Sets initial project context based on `LAST_PROJECT` settings.
+
+### 3.2 Key Slots & Callbacks
+- `_on_new_log(level, time, src, msg)`: Triggered by `logger` signal to refresh the terminal.
+- `_on_register_session()`: Creates project folders and **notifies logger** (`set_project_registered`).
+- `_on_tick()`: Timer-driven (100ms) function to sync UI labels with `control.get_status()`.
+- `_refresh_terminal_display()`: Reconstructs the terminal HTML text from the central `logger.buffer`.
+
+## 4. Interaction Logic with Logger
+
+| Interaction | Front-End Action | Logger Side Effect |
+| :--- | :--- | :--- |
+| **Subscription** | `connect(self._on_new_log)` | Broadcasts every new log to UI. |
+| **Registration** | `logger.set_project_registered(True)` | Enables disk writing for pending logs. |
+| **Display** | `logger.get_buffered_logs()` | Provides raw data for UI HTML rendering. |
+| **Persistence** | `self._save_config()` | Stores UI settings/project paths used by Logger. |
+
+## 5. Usage in Main
+```python
+from remake.front import RobotFrontEnd
+from remake.control import Control
+
+robot_control = Control()
+window = RobotFrontEnd(robot_control)
+window.show()
+```
+
+## 6. UI Scaling & States
+- **Fixed/Maximized**: Minimum size set to 1920x1200, defaults to Maximized.
+- **HTML Terminal**: Uses rich text rendering for level-based color coding (Red for ERROR, Green for TIP).

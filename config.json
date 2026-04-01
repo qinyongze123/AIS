@@ -1,0 +1,38 @@
+{
+    "_comment_project": "Project creation dialog defaults",
+    "LAST_PROJECT_PATH": "C:/Users/Admin/OneDrive/AIS/remake_projects_test",
+    "LAST_PROJECT_NAME": "ais_test1",
+    "LAST_OPERATOR": "yongze_test-only",
+    "OPERATORS": [
+        "",
+        "yongze_test-only"
+    ],
+    "_comment_connection": "Device/network connection defaults",
+    "ROBOT_IP": "192.168.1.10",
+    "DEFAULT_PORT": "/dev/ttyUSB0",
+    "REFRESH_RATE_MS": 50,
+    "_comment_control": "Injector/probe control defaults",
+    "DEFAULT_VELOCITY": 5.0,
+    "INJECT_ANGLE": 30.0,
+    "LIMIT_X": 100.0,
+    "LIMIT_Y": 50.0,
+    "LIMIT_Z": 150.0,
+    "_comment_vision_and_log": "Detection and logger",
+    "DETECTOR_THRESHOLD": 0.85,
+    "MAX_LOGS": 10000,
+    "_comment_visualization_camera": "3D camera presets (distance in cm)",
+    "VISUALIZATION_CAMERA": {
+        "LOOKAT": [
+            0.0,
+            0.0,
+            0.0
+        ],
+        "RESET_ELEVATION_DEG": 30.0,
+        "RESET_DISTANCE_CM": 50.0,
+        "FRONT_DISTANCE_CM": 45.0,
+        "TOP_DISTANCE_CM": 45.0,
+        "WHEEL_ZOOM_SPEED": 0.2,
+        "WHEEL_MIN_DISTANCE_CM": 5.0,
+        "WHEEL_MAX_DISTANCE_CM": 500.0
+    }
+}
